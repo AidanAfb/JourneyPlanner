@@ -64,20 +64,23 @@ public class MapEngine {
     // While loop to make continue to prompt the user if they enter a county no in the list
     while (!validCountryInput) {
       String wantedCountry;
+      String formattedCountry;
       // Printing the relevant message to ask the user for the country they want information about
       MessageCli.INSERT_COUNTRY.printMessage();
 
       // Using scanner to get the users input and saving it to the relevant variable
       wantedCountry = Utils.scanner.nextLine();
+      // Trimming the users input and ensuring th efirst letter is capitalised
+      formattedCountry = Utils.capitalizeFirstLetterOfEachWord(wantedCountry.trim());
 
       // try-catch block in order to find the country the user has entered and responding
       // appropriately depending on if it is found or not
       try {
         // Calling the getCountry method which will return either a Country object if found or an
         // exception if not found
-        Country country = getCountry(wantedCountry);
+        Country country = getCountry(formattedCountry);
         // Getting the list of neighbouring countries from the adjacencyMap for the entered country
-        List<String> neightbouringCountries = adjacencyMap.get(wantedCountry);
+        List<String> neightbouringCountries = adjacencyMap.get(formattedCountry);
         // If the country is successfully found then it will print an appropriate success message,
         // with the country name, continent, fuel cost, and list of neighbours
         MessageCli.COUNTRY_INFO.printMessage(
@@ -91,7 +94,7 @@ public class MapEngine {
       } catch (NoCountryFound e) {
         // Printing the appropriate error message before repeating the while loop to ask for a
         // country
-        MessageCli.INVALID_COUNTRY.printMessage(wantedCountry);
+        MessageCli.INVALID_COUNTRY.printMessage(formattedCountry);
       }
     }
   }
