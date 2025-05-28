@@ -147,6 +147,12 @@ public class MapEngine {
         MessageCli.INVALID_COUNTRY.printMessage(formattedEndCountry);
       }
     }
+
+    // Checking if the start and end destinations are the same location and printing the appropriate
+    // responce if they are.
+    if (formattedStartCountry.equals(formattedEndCountry)) {
+      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+    }
   }
 
   // getCountry method used to try and get the Country object from the users input, while
