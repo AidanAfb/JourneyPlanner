@@ -30,7 +30,14 @@ public class MapEngine {
   }
 
   /** this method is invoked when the user run the command info-country. */
-  public void showInfoCountry() {}
+  public void showInfoCountry() {
+    String wantedCountry;
+    // Printing the relevant message to ask the user for the country they want information about
+    MessageCli.INSERT_COUNTRY.printMessage();
+
+    // Using scanner to get the users input and saving it to the relevant variable
+    wantedCountry = Utils.scanner.nextLine();
+  }
 
   /** this method is invoked when the user run the command route. */
   public void showRoute() {}
