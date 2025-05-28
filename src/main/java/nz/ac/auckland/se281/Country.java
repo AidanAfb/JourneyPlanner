@@ -22,7 +22,7 @@ public class Country {
     return this.continent;
   }
 
-  public int getCountryCost() {
-    return this.countryCost;
+  public String getCountryCost() {
+    return Integer.toString(this.countryCost);
   }
 }
