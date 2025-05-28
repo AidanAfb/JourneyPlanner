@@ -100,7 +100,54 @@ public class MapEngine {
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {}
+  public void showRoute() {
+    String startCountry;
+    String formattedStartCountry;
+    String endCountry;
+    String formattedEndCountry;
+    while (true) {
+      MessageCli.INSERT_SOURCE.printMessage();
+      startCountry = Utils.scanner.nextLine();
+      formattedStartCountry = Utils.capitalizeFirstLetterOfEachWord(startCountry);
+      try {
+        // Calling the getCountry method which will return either a Country object if found or an
+        // exception if not found
+        Country country = getCountry(formattedStartCountry);
+        // Getting the list of neighbouring countries from the adjacencyMap for the entered country
+        List<String> neightbouringCountries = adjacencyMap.get(formattedStartCountry);
+        // If the country is successfully found then it will print the starting country
+        System.out.println(formattedStartCountry);
+        // breaking out of the while loop once a country has successfully been found
+        break;
+        // Catch block in case an exception is thrown when trying to find the entered country
+      } catch (NoCountryFound e) {
+        // Printing the appropriate error message before repeating the while loop to ask for a
+        // country
+        MessageCli.INVALID_COUNTRY.printMessage(formattedStartCountry);
+      }
+    }
+    while (true) {
+      MessageCli.INSERT_DESTINATION.printMessage();
+      endCountry = Utils.scanner.nextLine();
+      formattedEndCountry = Utils.capitalizeFirstLetterOfEachWord(endCountry);
+      try {
+        // Calling the getCountry method which will return either a Country object if found or an
+        // exception if not found
+        Country country = getCountry(formattedEndCountry);
+        // Getting the list of neighbouring countries from the adjacencyMap for the entered country
+        List<String> neightbouringCountries = adjacencyMap.get(formattedEndCountry);
+        // If the country is successfully found then it will print the end country
+        System.out.println(formattedEndCountry);
+        // breaking out of the while loop once a country has successfully been found
+        break;
+        // Catch block in case an exception is thrown when trying to find the entered country
+      } catch (NoCountryFound e) {
+        // Printing the appropriate error message before repeating the while loop to ask for a
+        // country
+        MessageCli.INVALID_COUNTRY.printMessage(formattedEndCountry);
+      }
+    }
+  }
 
   // getCountry method used to try and get the Country object from the users input, while
   // accomidating for exceptions
