@@ -236,6 +236,13 @@ public class MapEngine {
         }
         // Printing the final message with the COntinent info
         MessageCli.CONTINENT_INFO.printMessage(formattedContinents.toString());
+
+        // Converting the Map.Entry for the most expensive continent into a string so that it can be
+        // printed
+        String formattedMostExpensive =
+            (mostExpensive.getKey() + " (" + mostExpensive.getValue() + ")");
+        // Printing the most fuel expensive continent travelled through
+        MessageCli.FUEL_CONTINENT_INFO.printMessage(formattedMostExpensive);
       }
     }
   }
