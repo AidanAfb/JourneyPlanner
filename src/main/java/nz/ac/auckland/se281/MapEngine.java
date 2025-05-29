@@ -159,7 +159,7 @@ public class MapEngine {
     } else {
       // Creating a list to store the locations found in the findShortestPath method
       List<String> shortestPath = findShortestPath(formattedStartCountry, formattedEndCountry);
-      System.out.println(shortestPath);
+      MessageCli.ROUTE_INFO.printMessage(shortestPath.toString());
     }
   }
 
