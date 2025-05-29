@@ -204,19 +204,19 @@ public class MapEngine {
 
       // For loop to iterate through each of the neighbouring countries at the end of the current
       // path
-      // for (String neighbor : adjacencyMap.get(current)) {
-      //   // If the neighbour hasn't been visited yet then it will add it to the path list and
-      //   // continue the search
-      //   if (!visited.contains(neighbor)) {
-      //     // Marking the new country as having been checked
-      //     visited.add(neighbor);
-      //     // Creating a new copy of the current path
-      //     List<String> newPath = new ArrayList<>(path);
-      //     // Adding the new country on to the end of the path
-      //     newPath.add(neighbor);
-      //     queue.add(newPath);
-      //   }
-      // }
+      for (String neighbor : adjacencyMap.get(current)) {
+        // If the neighbour hasn't been visited yet then it will add it to the path list and
+        // continue the search
+        if (!visited.contains(neighbor)) {
+          // Marking the new country as having been checked
+          visited.add(neighbor);
+          // Creating a new copy of the current path
+          List<String> newPath = new ArrayList<>(path);
+          // Adding the new country on to the end of the path
+          newPath.add(neighbor);
+          queue.add(newPath);
+        }
+      }
     }
     // If no path is found then it will return null
     return null;
