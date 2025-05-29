@@ -3,8 +3,12 @@ package nz.ac.auckland.se281;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 /** This class is the main entry point. */
 public class MapEngine {
@@ -152,6 +156,10 @@ public class MapEngine {
     // responce if they are.
     if (formattedStartCountry.equals(formattedEndCountry)) {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+    } else {
+      // Creating a list to store the locations found in the findShortestPath method
+      List<String> shortestPath = findShortestPath(formattedStartCountry, formattedEndCountry);
+      System.out.println(shortestPath);
     }
   }
 
@@ -165,5 +173,52 @@ public class MapEngine {
     }
     // If the country if found then returning the Country object
     return countryMap.get(countryWanted);
+  }
+
+  // findShortestPath method performs a Breadth-First Search to find the shortest path between the
+  // start and end destinations based on the adjacencyMap
+  private List<String> findShortestPath(String startPoint, String endPoint) {
+    // Queue stores the path being taken to reach the destination country
+    Queue<List<String>> queue = new LinkedList<>();
+    // Visited set means we know not to go back to a country we have already been to, resulting in
+    // an infinite loop
+    Set<String> visited = new HashSet<>();
+
+    // Creating the start of the path and marking it as the starting point
+    List<String> startPath = new ArrayList<>();
+    startPath.add(startPoint);
+    queue.add(startPath);
+    visited.add(startPoint);
+
+    // While loop to continue to follow the paths to find the shortest route
+    while (!queue.isEmpty()) {
+      List<String> path = queue.poll();
+      // Storing the most recent country on the path
+      String current = path.get(path.size() - 1);
+
+      // Checking if we have reached the target destination in our path
+      if (current.equals(endPoint)) {
+        // Returning the path if the destination is reached
+        return path;
+      }
+
+      // For loop to iterate through each of the neighbouring countries at the end of the current
+      // path
+      // for (String neighbor : adjacencyMap.get(current)) {
+      //   // If the neighbour hasn't been visited yet then it will add it to the path list and
+      //   // continue the search
+      //   if (!visited.contains(neighbor)) {
+      //     // Marking the new country as having been checked
+      //     visited.add(neighbor);
+      //     // Creating a new copy of the current path
+      //     List<String> newPath = new ArrayList<>(path);
+      //     // Adding the new country on to the end of the path
+      //     newPath.add(neighbor);
+      //     queue.add(newPath);
+      //   }
+      // }
+    }
+    // If no path is found then it will return null
+    return null;
   }
 }
