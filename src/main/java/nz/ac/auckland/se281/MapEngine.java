@@ -212,10 +212,27 @@ public class MapEngine {
         // Creating a new list so that the info about continents and there fuel used can be printed
         // in the correct format
         List<String> formattedContinents = new ArrayList<>();
+
+        // Creating a Map.Entry to keep track of the most expensive continent that has been
+        // travelled through
+        Map.Entry<String, Integer> mostExpensive = null;
+
         // For loop to add each continent and fuel to the list
         for (Map.Entry<String, Integer> entry : continentsVisitedMap.entrySet()) {
           // Adding the information in the correct format with spacing and parenthasis
           formattedContinents.add(entry.getKey() + " (" + entry.getValue() + ")");
+
+          // If statements to compare the fuel cost of the current continent to the saved most
+          // expensive continent
+          if (mostExpensive == null) {
+            // for the first continent it will enter the current one
+            mostExpensive = entry;
+          } else {
+            // Replacing the most expensive continent if a more expensive one is found
+            if (mostExpensive.getValue() < entry.getValue()) {
+              mostExpensive = entry;
+            }
+          }
         }
         // Printing the final message with the COntinent info
         MessageCli.CONTINENT_INFO.printMessage(formattedContinents.toString());
