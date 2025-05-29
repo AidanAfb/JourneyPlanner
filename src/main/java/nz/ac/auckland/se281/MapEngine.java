@@ -90,7 +90,7 @@ public class MapEngine {
         MessageCli.COUNTRY_INFO.printMessage(
             country.getCountryName(),
             country.getCountryContinent(),
-            country.getCountryCost(),
+            country.getCountryCostString(),
             neightbouringCountries.toString());
         // breaking out of the while loop once a country has successfully been found
         break;
@@ -163,6 +163,20 @@ public class MapEngine {
 
       if (shortestPath.size() == 2) {
         MessageCli.FUEL_INFO.printMessage("0");
+      } else if (shortestPath.size() > 2) {
+        int fuelUsed = 0;
+        for (int i = 1; i < shortestPath.size(); i++) {
+          try {
+            // Calling the getCountry method which will return either a Country object if found or
+            // an exception if not found
+            Country country = getCountry(shortestPath.get(i));
+            fuelUsed += country.getCountryCostInt();
+            // break;
+          } catch (NoCountryFound e) {
+            MessageCli.INVALID_COUNTRY.printMessage(formattedEndCountry);
+          }
+        }
+        System.out.println(fuelUsed);
       }
     }
   }
