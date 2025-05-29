@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -165,27 +166,41 @@ public class MapEngine {
         MessageCli.FUEL_INFO.printMessage("0");
       } else if (shortestPath.size() > 2) {
         int fuelUsed = 0;
-        ArrayList<String> continentsVisited = new ArrayList<>();
+        // Creating a linked has map so the continents visited are kept in order, and both the
+        // continent name and total fuel can be tracked
+        Map<String, Integer> continentsVisitedMap = new LinkedHashMap<>();
+        // For loop to itterate through all of the locations along the path
         for (int i = 0; i < shortestPath.size(); i++) {
+          // Using try-catch to safetly get the country object for the country being visited
           try {
             // Calling the getCountry method which will return either a Country object if found or
             // an exception if not found
             Country country = getCountry(shortestPath.get(i));
 
+            // If statements so the start and end points don't add to the fuel costs
             if (i == 0) {
-              // code to add continent started in
-              continentsVisited.add(country.getCountryContinent());
+              // code to add continent started in to the hash map but not add any fuel cost
+              continentsVisitedMap.putIfAbsent(country.getCountryContinent(), 0);
             } else if ((i >= 1) && (i < (shortestPath.size() - 1))) {
-              // code to add continent travelled to if new
               // System.out.println(country.getCountryName()); Code used to test
+              // Adding the fuel cost of the country
               fuelUsed += country.getCountryCostInt();
-              if (!continentsVisited.contains(country.getCountryContinent())) {
-                continentsVisited.add(country.getCountryContinent());
+              // If statement to check if the continent has already been added to the list, if it
+              // has then the fuel cost is added to the total fuel cost for that continent, if not
+              // then the new continent is added
+              if (!continentsVisitedMap.containsKey(country.getCountryContinent())) {
+                continentsVisitedMap.put(
+                    country.getCountryContinent(), country.getCountryCostInt());
+              } else {
+                continentsVisitedMap.put(
+                    country.getCountryContinent(),
+                    continentsVisitedMap.get(country.getCountryContinent())
+                        + country.getCountryCostInt());
               }
             } else if (i == (shortestPath.size() - 1)) {
-              // code to add continent of destination if new
-              if (!continentsVisited.contains(country.getCountryContinent())) {
-                continentsVisited.add(country.getCountryContinent());
+              // code to add continent of destination if new but not adding any fuel cost
+              if (!continentsVisitedMap.containsKey(country.getCountryContinent())) {
+                continentsVisitedMap.putIfAbsent(country.getCountryContinent(), 0);
               }
             }
           } catch (NoCountryFound e) {
@@ -193,7 +208,17 @@ public class MapEngine {
           }
         }
         MessageCli.FUEL_INFO.printMessage(Integer.toString(fuelUsed));
-        MessageCli.CONTINENT_INFO.printMessage(continentsVisited.toString());
+
+        // Creating a new list so that the info about continents and there fuel used can be printed
+        // in the correct format
+        List<String> formattedContinents = new ArrayList<>();
+        // For loop to add each continent and fuel to the list
+        for (Map.Entry<String, Integer> entry : continentsVisitedMap.entrySet()) {
+          // Adding the information in the correct format with spacing and parenthasis
+          formattedContinents.add(entry.getKey() + " (" + entry.getValue() + ")");
+        }
+        // Printing the final message with the COntinent info
+        MessageCli.CONTINENT_INFO.printMessage(formattedContinents.toString());
       }
     }
   }
