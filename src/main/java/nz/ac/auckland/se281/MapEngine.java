@@ -184,6 +184,9 @@ public class MapEngine {
               }
             } else if (i == (shortestPath.size() - 1)) {
               // code to add continent of destination if new
+              if (!continentsVisited.contains(country.getCountryContinent())) {
+                continentsVisited.add(country.getCountryContinent());
+              }
             }
           } catch (NoCountryFound e) {
             MessageCli.INVALID_COUNTRY.printMessage(formattedEndCountry);
