@@ -160,6 +160,10 @@ public class MapEngine {
       // Creating a list to store the locations found in the findShortestPath method
       List<String> shortestPath = findShortestPath(formattedStartCountry, formattedEndCountry);
       MessageCli.ROUTE_INFO.printMessage(shortestPath.toString());
+
+      if (shortestPath.size() == 2) {
+        MessageCli.FUEL_INFO.printMessage("0");
+      }
     }
   }
 
