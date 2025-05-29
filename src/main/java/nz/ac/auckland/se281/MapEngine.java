@@ -179,6 +179,9 @@ public class MapEngine {
               // code to add continent travelled to if new
               // System.out.println(country.getCountryName()); Code used to test
               fuelUsed += country.getCountryCostInt();
+              if (!continentsVisited.contains(country.getCountryContinent())) {
+                continentsVisited.add(country.getCountryContinent());
+              }
             } else if (i == (shortestPath.size() - 1)) {
               // code to add continent of destination if new
             }
