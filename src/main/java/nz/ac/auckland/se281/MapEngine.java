@@ -165,18 +165,29 @@ public class MapEngine {
         MessageCli.FUEL_INFO.printMessage("0");
       } else if (shortestPath.size() > 2) {
         int fuelUsed = 0;
-        for (int i = 1; i < (shortestPath.size() - 1); i++) {
+        ArrayList<String> continentsVisited = new ArrayList<>();
+        for (int i = 0; i < shortestPath.size(); i++) {
           try {
             // Calling the getCountry method which will return either a Country object if found or
             // an exception if not found
             Country country = getCountry(shortestPath.get(i));
-            // System.out.println(country.getCountryName()); Code used to test
-            fuelUsed += country.getCountryCostInt();
+
+            if (i == 0) {
+              // code to add continent started in
+              continentsVisited.add(country.getCountryContinent());
+            } else if ((i >= 1) && (i < (shortestPath.size() - 1))) {
+              // code to add continent travelled to if new
+              // System.out.println(country.getCountryName()); Code used to test
+              fuelUsed += country.getCountryCostInt();
+            } else if (i == (shortestPath.size() - 1)) {
+              // code to add continent of destination if new
+            }
           } catch (NoCountryFound e) {
             MessageCli.INVALID_COUNTRY.printMessage(formattedEndCountry);
           }
         }
         MessageCli.FUEL_INFO.printMessage(Integer.toString(fuelUsed));
+        MessageCli.CONTINENT_INFO.printMessage(continentsVisited.toString());
       }
     }
   }
