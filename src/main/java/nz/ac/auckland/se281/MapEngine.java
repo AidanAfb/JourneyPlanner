@@ -117,12 +117,7 @@ public class MapEngine {
       try {
         // Calling the getCountry method which will return either a Country object if found or an
         // exception if not found
-        Country country = getCountry(formattedStartCountry);
-        // Getting the list of neighbouring countries from the adjacencyMap for the entered country
-        List<String> neightbouringCountries = adjacencyMap.get(formattedStartCountry);
-        // If the country is successfully found then it will print the starting country
-        System.out.println(formattedStartCountry);
-        // breaking out of the while loop once a country has successfully been found
+        getCountry(formattedStartCountry);
         break;
         // Catch block in case an exception is thrown when trying to find the entered country
       } catch (NoCountryFound e) {
@@ -136,13 +131,9 @@ public class MapEngine {
       endCountry = Utils.scanner.nextLine();
       formattedEndCountry = Utils.capitalizeFirstLetterOfEachWord(endCountry);
       try {
-        // Calling the getCountry method which will return either a Country object if found or an
-        // exception if not found
-        Country country = getCountry(formattedEndCountry);
-        // Getting the list of neighbouring countries from the adjacencyMap for the entered country
-        List<String> neightbouringCountries = adjacencyMap.get(formattedEndCountry);
-        // If the country is successfully found then it will print the end country
-        System.out.println(formattedEndCountry);
+        // Calling the getCountry method which will return either a Country object if the entered
+        // end country or an exception if not found
+        getCountry(formattedEndCountry);
         // breaking out of the while loop once a country has successfully been found
         break;
         // Catch block in case an exception is thrown when trying to find the entered country
