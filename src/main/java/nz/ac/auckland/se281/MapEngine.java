@@ -110,6 +110,10 @@ public class MapEngine {
     String formattedStartCountry;
     String endCountry;
     String formattedEndCountry;
+
+    Country startingCountry;
+    Country endingCountry;
+
     while (true) {
       MessageCli.INSERT_SOURCE.printMessage();
       startCountry = Utils.scanner.nextLine();
@@ -117,7 +121,7 @@ public class MapEngine {
       try {
         // Calling the getCountry method which will return either a Country object if found or an
         // exception if not found
-        getCountry(formattedStartCountry);
+        startingCountry = getCountry(formattedStartCountry);
         break;
         // Catch block in case an exception is thrown when trying to find the entered country
       } catch (NoCountryFound e) {
@@ -133,7 +137,7 @@ public class MapEngine {
       try {
         // Calling the getCountry method which will return either a Country object if the entered
         // end country or an exception if not found
-        getCountry(formattedEndCountry);
+        endingCountry = getCountry(formattedEndCountry);
         // breaking out of the while loop once a country has successfully been found
         break;
         // Catch block in case an exception is thrown when trying to find the entered country
@@ -155,6 +159,12 @@ public class MapEngine {
 
       if (shortestPath.size() == 2) {
         MessageCli.FUEL_INFO.printMessage("0");
+        if (startingCountry.getCountryContinent().equals(endingCountry.getCountryContinent())) {
+          MessageCli.CONTINENT_INFO.printMessage(
+              "[" + startingCountry.getCountryContinent() + " (0)]");
+        }
+        // MessageCli.CONTINENT_INFO.printMessage();
+        MessageCli.FUEL_CONTINENT_INFO.printMessage();
       } else if (shortestPath.size() > 2) {
         int fuelUsed = 0;
         // Creating a linked has map so the continents visited are kept in order, and both the
