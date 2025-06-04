@@ -162,6 +162,8 @@ public class MapEngine {
         if (startingCountry.getCountryContinent().equals(endingCountry.getCountryContinent())) {
           MessageCli.CONTINENT_INFO.printMessage(
               "[" + startingCountry.getCountryContinent() + " (0)]");
+          MessageCli.FUEL_CONTINENT_INFO.printMessage(
+              startingCountry.getCountryContinent() + " (0)");
         }
         // MessageCli.CONTINENT_INFO.printMessage();
         MessageCli.FUEL_CONTINENT_INFO.printMessage();
