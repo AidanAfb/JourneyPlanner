@@ -157,14 +157,20 @@ public class MapEngine {
       List<String> shortestPath = findShortestPath(formattedStartCountry, formattedEndCountry);
       MessageCli.ROUTE_INFO.printMessage(shortestPath.toString());
 
+      // If statement to determine whether the start and destination countries are neighbours
       if (shortestPath.size() == 2) {
+        // If they are neighbours then the fuel cost will be 0
         MessageCli.FUEL_INFO.printMessage("0");
+        // If statement to see if the neighbouring countries are located on the same continent
         if (startingCountry.getCountryContinent().equals(endingCountry.getCountryContinent())) {
+          // If they are on the same continent then the continent info will display a singular value
           MessageCli.CONTINENT_INFO.printMessage(
               "[" + startingCountry.getCountryContinent() + " (0)]");
           MessageCli.FUEL_CONTINENT_INFO.printMessage(
               startingCountry.getCountryContinent() + " (0)");
         } else {
+          // If the two neighbouring countries are on seperate continents then the continent info
+          // will have to include both of the continents
           MessageCli.CONTINENT_INFO.printMessage(
               "["
                   + startingCountry.getCountryContinent()
