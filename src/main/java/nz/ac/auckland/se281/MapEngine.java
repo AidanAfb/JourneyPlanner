@@ -164,9 +164,16 @@ public class MapEngine {
               "[" + startingCountry.getCountryContinent() + " (0)]");
           MessageCli.FUEL_CONTINENT_INFO.printMessage(
               startingCountry.getCountryContinent() + " (0)");
+        } else {
+          MessageCli.CONTINENT_INFO.printMessage(
+              "["
+                  + startingCountry.getCountryContinent()
+                  + " (0), "
+                  + endingCountry.getCountryContinent()
+                  + " (0)]");
+          MessageCli.FUEL_CONTINENT_INFO.printMessage(
+              startingCountry.getCountryContinent() + " (0)");
         }
-        // MessageCli.CONTINENT_INFO.printMessage();
-        MessageCli.FUEL_CONTINENT_INFO.printMessage();
       } else if (shortestPath.size() > 2) {
         int fuelUsed = 0;
         // Creating a linked has map so the continents visited are kept in order, and both the
